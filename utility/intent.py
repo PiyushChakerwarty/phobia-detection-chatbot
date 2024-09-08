@@ -1,19 +1,19 @@
 from fuzzywuzzy import process
-import detect_phobia
+from utility.utils import get_all_combined_symptoms
+import pandas as pd
+import random
 
 # %%
 # Load the CSV file into a DataFrame
-df_intents = pd.read_csv("../data_collection/data/intent.csv")
+df_intents = pd.read_csv("./data_collection/data/intent.csv")
 
 # Convert the phrases and intents into lists for easy matching
 phrases = df_intents["Word"].tolist()
 intents = df_intents["Intent"].tolist()
 
-
 def get_intent(user_input):
     # Find the closest matching phrase and its score
     match, score = process.extractOne(user_input, phrases)
-    print(match, score)
 
     # Set a threshold for how close the match needs to be
     threshold = 90
@@ -25,10 +25,6 @@ def get_intent(user_input):
     else:
         # If no good match is found, return "symptoms" as default intent
         return "symptoms"
-
-
-# %%
-import random
 
 
 # Personalized greeting responses
@@ -86,7 +82,6 @@ def ask_for_clarification():
 # Main function to handle user input and return a response
 def handle_input(user_input):
     intent = get_intent(user_input)
-    print(intent)
 
     if intent == "greeting":
         return personalized_greeting()
@@ -95,7 +90,7 @@ def handle_input(user_input):
     elif intent == "no_symptoms":
         return no_symptoms_response()
     elif intent == "symptoms":
-        symptoms = detect_phobia.get_all_combined_symptoms(user_input)
+        symptoms = get_all_combined_symptoms(user_input)
         return empathetic_symptom_response(symptoms)
     else:
         return ask_for_clarification()

@@ -170,24 +170,11 @@ def extract_symptoms_biobert(user_input):
     print("Matched Symptoms BERT and fuzzywuzzy:", set(extracted_symptoms_bert))
     return list(set(extracted_symptoms_bert))
 
-
-# %% [markdown]
-# ### Combined list of Symptoms
-
-# %%
 def get_all_combined_symptoms(user_input):
     combined_symptoms = extract_symptoms_phraser(user_input) + extract_symptoms_ngrams(user_input) + extract_symptoms_doc(user_input) + extract_symptoms_biobert(user_input)
     combined_symptoms = list(set(combined_symptoms))
     return combined_symptoms
-get_all_combined_symptoms(user_input)
 
-# %%
-get_all_combined_symptoms("Having trouble breathing")
-
-# %% [markdown]
-# # Model Creation
-
-# %%
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import cross_val_score, LeaveOneOut, cross_val_predict
 from sklearn.metrics import classification_report, accuracy_score

@@ -1,108 +1,105 @@
-from flask import Flask, request, jsonify
 import joblib
-import numpy as np
+from flask import Flask, request, jsonify
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
+import datetime
+import os
 
-# Initialize the Flask app
+from utility.intent import handle_input, get_intent
+
+# region  Flask Configuration
 app = Flask(__name__)
 
+# Configuration
+app.config.from_object('config.Config')
+
+# Initialize extensions
+db = SQLAlchemy(app)
+
+migrate = Migrate(app, db)
+jwt = JWTManager(app)
+
+from models import User
 models_path = './models/'
 # Load the pre-trained models (already trained using Grid Search)
-knn_model = joblib.load(models_path+'best_knn_model.pkl')
-lr_model = joblib.load(models_path+'best_lr_model.pkl')
-dt_model = joblib.load(models_path+'best_dt_model.pkl')
+knn_model = joblib.load(models_path + 'best_knn_model.pkl')
+lr_model = joblib.load(models_path + 'best_lr_model.pkl')
+dt_model = joblib.load(models_path + 'best_dt_model.pkl')
 
-# Store conversation states (simple state management for conversation flow)
-user_data = {}
+chats = {}
 
-# Intent classifier (basic keyword matching)
-def detect_intent(user_input):
-    user_input = user_input.lower()
-    if 'hi' in user_input or 'hello' in user_input:
-        return 'greet'
-    elif 'no' in user_input or 'none' in user_input:
-        return 'no_more_symptoms'
-    elif 'goodbye' in user_input or 'bye' in user_input:
-        return 'goodbye'
+
+# endregion
+
+# region  User signup and login
+@app.route('/signup', methods=['POST'])
+def signup():
+    data = request.get_json()
+    username = data.get('username')
+    password = data.get('password')
+
+    if User.query.filter_by(username=username).first():
+        return jsonify({"message": "User already exists"}), 400
+
+    hashed_password = generate_password_hash(password)
+    new_user = User(username=username, password=hashed_password)
+    db.session.add(new_user)
+    db.session.commit()
+
+    return jsonify({"message": "User created successfully"}), 201
+
+
+# User login route
+@app.route('/login', methods=['POST'])
+def login():
+    data = request.get_json()
+    username = data.get('username')
+    password = data.get('password')
+
+    user = User.query.filter_by(username=username).first()
+
+    if not user or not check_password_hash(user.password, password):
+        return jsonify({"message": "Invalid username or password"}), 401
+
+    access_token = create_access_token(identity=user.id, expires_delta=datetime.timedelta(hours=1))
+    return jsonify(access_token=access_token), 200
+
+
+# Protected route
+@app.route('/protected', methods=['GET'])
+@jwt_required()
+def protected():
+    user_id = get_jwt_identity()
+    return jsonify(logged_in_as=user_id), 200
+# endregion
+
+
+# region Chat API
+@app.route("/get_intent", methods=['POST'])
+@jwt_required()
+def intent():
+    data = request.get_json()
+    chat_id = data.get('chat_id')
+    if chat_id is not None:
+        intent = get_intent(data['message'])
+        if intent == 'symptoms':
+            if chats.get(chat_id) is not None:
+                chats["messages"].append(data['message'])
+            else:
+                chats[chat_id] = {
+                    "messages": [],
+                    "symptoms": []
+                }
+        return jsonify({"intent": intent, "msg": 'got intent of message'})
     else:
-        return 'provide_symptoms'
-
-# Integrating bioBERT for symptom extraction (simplified for this example)
-def extract_symptoms_with_biobert(text):
-    """
-    bioBERT is used to extract symptoms from user input.
-    In this example, assume bioBERT extracts 'SYMPTOM' entities.
-    """
-    # For now, assume bioBERT returns a list of symptoms from the text
-    symptoms = bio_bert_symptom_extraction(text)  # Use your bioBERT model here
-    return symptoms
-
-# Conversational bot logic with bioBERT for symptom extraction
-@app.route('/chat', methods=['POST'])
-def chat():
-    data = request.json
-    user_id = data.get('user_id')
-    user_input = data.get('message').lower()
-
-    # Initialize the state if the user is new
-    if user_id not in user_data:
-        user_data[user_id] = {'state': 'greeting'}
-
-    state = user_data[user_id]['state']
-    intent = detect_intent(user_input)
-
-    # Greeting state
-    if intent == 'greet':
-        user_data[user_id]['state'] = 'asking_symptoms'
-        return jsonify({"response": "Hello! I'm here to assist you. How are you feeling today? Could you describe your symptoms?"})
-
-    # Providing symptoms state
-    elif intent == 'provide_symptoms':
-        symptoms = extract_symptoms_with_biobert(user_input)  # Use bioBERT to detect symptoms
-        if symptoms:
-            # Store symptoms and ask for more
-            user_data[user_id]['symptoms'] = symptoms
-            user_data[user_id]['state'] = 'more_symptoms'
-            return jsonify({"response": f"I detected the following symptoms: {', '.join(symptoms)}. Are there any more symptoms you're experiencing?"})
-        else:
-            return jsonify({"response": "I couldn't recognize any symptoms. Could you describe them again in more detail?"})
-
-    # Asking for more symptoms
-    elif intent == 'no_more_symptoms':
-        user_data[user_id]['state'] = 'predicting'
-        return jsonify({"response": "Thank you! Let me analyze your symptoms and provide a prediction."})
-
-    # Predict phobia based on symptoms
-    elif state == 'predicting':
-        symptoms = user_data[user_id].get('symptoms', [])
-        symptom_list = symptoms  # Assuming bioBERT has already extracted symptoms
-
-        # Convert symptoms to feature vector for models (you already have this logic)
-        features = symptom_to_features(symptom_list, uploaded_symptom_weights_df)
-
-        # Predict using all three models
-        knn_prediction = knn_model.predict(features)[0]
-        lr_prediction = lr_model.predict(features)[0]
-        dt_prediction = dt_model.predict(features)[0]
-
-        # Majority voting or consensus
-        predictions = [knn_prediction, lr_prediction, dt_prediction]
-        final_prediction = max(set(predictions), key=predictions.count)
-
-        # Clear the state for next conversation
-        user_data[user_id]['state'] = 'greeting'
-
         return jsonify({
-            "response": f"Based on the symptoms, it seems you might be experiencing {final_prediction}. Feel free to ask more questions!"
-        })
+            'error': "No chat id provided",
+        }, status=422)
 
-    # Goodbye intent
-    elif intent == 'goodbye':
-        user_data[user_id]['state'] = 'greeting'  # Reset state
-        return jsonify({"response": "Goodbye! Stay safe and feel free to come back anytime if you need help."})
 
-    # Default response for unrecognized input
-    else:
-        return jsonify({"response": "I'm not sure what you meant. Could you clarify or provide more details?"})
-
-if __name__ == '__main__':
-    app.run(debug=True)
+@app.route('/predict', methods=['POST'])
+def chat():
+    pass
+# endregion
