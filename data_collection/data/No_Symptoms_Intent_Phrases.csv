@@ -1,0 +1,32 @@
+Phrase,Intent
+I don't have any symptoms.,no_symptoms
+I'm feeling fine.,no_symptoms
+I'm okay.,no_symptoms
+I'm feeling normal.,no_symptoms
+No symptoms.,no_symptoms
+I'm not experiencing any symptoms.,no_symptoms
+Everything seems normal.,no_symptoms
+I don't feel sick.,no_symptoms
+I'm not sick.,no_symptoms
+Nothing's wrong with me.,no_symptoms
+I feel good.,no_symptoms
+I'm not feeling anything unusual.,no_symptoms
+I'm healthy.,no_symptoms
+I'm not having any issues.,no_symptoms
+No problems here.,no_symptoms
+I don't have any issues.,no_symptoms
+Everything is fine.,no_symptoms
+I don't feel bad.,no_symptoms
+I'm feeling great.,no_symptoms
+No signs of illness.,no_symptoms
+I have no health concerns.,no_symptoms
+I'm perfectly fine.,no_symptoms
+All good.,no_symptoms
+I'm in good health.,no_symptoms
+"I don't need any help, I’m fine.",no_symptoms
+I don’t have any pain.,no_symptoms
+No discomfort at all.,no_symptoms
+Nothing to worry about.,no_symptoms
+All is well.,no_symptoms
+I'm totally fine.,no_symptoms
+I feel perfectly normal.,no_symptoms

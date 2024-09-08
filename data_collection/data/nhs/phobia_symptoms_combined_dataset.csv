@@ -1,0 +1,37 @@
+Symptom,Type,Associated Phobia
+sweating,Physical,"General Phobia, Social Phobia, Claustrophobia"
+trembling,Physical,"General Phobia, Social Phobia, Claustrophobia"
+hot flushes or chills,Physical,"General Phobia, Social Phobia, Claustrophobia"
+shortness of breath,Physical,"General Phobia, Agoraphobia, Claustrophobia"
+difficulty breathing,Physical,"General Phobia, Agoraphobia, Claustrophobia"
+choking sensation,Physical,"General Phobia, Claustrophobia"
+rapid heartbeat,Physical,"General Phobia, Social Phobia, Claustrophobia"
+pain or tightness in the chest,Physical,"General Phobia, Claustrophobia"
+sensation of butterflies in the stomach,Physical,"General Phobia, Claustrophobia"
+nausea,Physical,"General Phobia, Claustrophobia"
+headaches and dizziness,Physical,"General Phobia, Claustrophobia"
+feeling faint,Physical,"General Phobia, Claustrophobia"
+numbness or pins and needles,Physical,"General Phobia, Claustrophobia"
+dry mouth,Physical,"General Phobia, Claustrophobia"
+need to go to the toilet,Physical,"General Phobia, Claustrophobia"
+ringing in your ears,Physical,"General Phobia, Claustrophobia"
+confusion or disorientation,Physical,"General Phobia, Claustrophobia"
+fear of losing control,Psychological,"General Phobia, Claustrophobia"
+fear of fainting,Psychological,"General Phobia, Claustrophobia"
+feelings of dread,Psychological,"Panic Disorder, General Phobia"
+fear of dying,Psychological,Panic Disorder
+rapid breathing,Physical,Agoraphobia
+difficulty swallowing,Physical,Agoraphobia
+diarrhoea,Physical,Agoraphobia
+feeling sick,Physical,Agoraphobia
+chest pain,Physical,Agoraphobia
+dizziness,Physical,Agoraphobia
+feeling hot and sweaty,Physical,Agoraphobia
+difficulty swallowing,Physical,Agoraphobia
+feeling detached from body,Psychological,Claustrophobia
+blushing,Physical,Social Phobia
+feeling sick,Physical,Social Phobia
+pounding heartbeat,Psychological,Social Phobia
+panic attacks,Psychological,Social Phobia
+fear of being judged,Psychological,Social Phobia
+fear of social situations,Psychological,Social Phobia

@@ -1,0 +1,204 @@
+{
+    "sweating": {
+        "social phobia": 0.7,
+        "general phobia": 0.5,
+        "agoraphobia": 0.4,
+        "claustrophobia": 0.3
+    },
+    "trembling": {
+        "social phobia": 0.8,
+        "general phobia": 0.6,
+        "agoraphobia": 0.5,
+        "claustrophobia": 0.4
+    },
+    "hot flushes or chills": {
+        "social phobia": 0.5,
+        "general phobia": 0.6,
+        "agoraphobia": 0.4,
+        "claustrophobia": 0.3
+    },
+    "shortness of breath": {
+        "agoraphobia": 0.8,
+        "claustrophobia": 0.7,
+        "general phobia": 0.5,
+        "social phobia": 0.4
+    },
+    "difficulty breathing": {
+        "agoraphobia": 0.7,
+        "claustrophobia": 0.8,
+        "general phobia": 0.5,
+        "social phobia": 0.4
+    },
+    "choking sensation": {
+        "claustrophobia": 0.8,
+        "general phobia": 0.6,
+        "agoraphobia": 0.5,
+        "social phobia": 0.3
+    },
+    "rapid heartbeat": {
+        "social phobia": 0.7,
+        "general phobia": 0.6,
+        "agoraphobia": 0.5,
+        "claustrophobia": 0.4
+    },
+    "pain or tightness in the chest": {
+        "general phobia": 0.6,
+        "claustrophobia": 0.5,
+        "agoraphobia": 0.5,
+        "social phobia": 0.4
+    },
+    "butterflies in the stomach": {
+        "social phobia": 0.8,
+        "general phobia": 0.6,
+        "agoraphobia": 0.4,
+        "claustrophobia": 0.3
+    },
+    "nausea": {
+        "social phobia": 0.7,
+        "general phobia": 0.6,
+        "agoraphobia": 0.5,
+        "claustrophobia": 0.3
+    },
+    "headaches and dizziness": {
+        "general phobia": 0.6,
+        "claustrophobia": 0.5,
+        "agoraphobia": 0.4,
+        "social phobia": 0.3
+    },
+    "feeling faint": {
+        "agoraphobia": 0.7,
+        "claustrophobia": 0.8,
+        "general phobia": 0.6,
+        "social phobia": 0.4
+    },
+    "numbness or pins and needles": {
+        "claustrophobia": 0.7,
+        "general phobia": 0.6,
+        "agoraphobia": 0.5,
+        "social phobia": 0.3
+    },
+    "dry mouth": {
+        "social phobia": 0.6,
+        "general phobia": 0.5,
+        "agoraphobia": 0.4,
+        "claustrophobia": 0.3
+    },
+    "need to go to the toilet": {
+        "general phobia": 0.6,
+        "claustrophobia": 0.5,
+        "agoraphobia": 0.4,
+        "social phobia": 0.4
+    },
+    "ringing in your ears": {
+        "general phobia": 0.4,
+        "claustrophobia": 0.5,
+        "agoraphobia": 0.4,
+        "social phobia": 0.3
+    },
+    "confusion or disorientation": {
+        "claustrophobia": 0.7,
+        "agoraphobia": 0.6,
+        "general phobia": 0.5,
+        "social phobia": 0.4
+    },
+    "rapid breathing": {
+        "agoraphobia": 0.8
+    },
+    "difficulty swallowing": {
+        "agoraphobia": 0.7
+    },
+    "diarrhoea": {
+        "agoraphobia": 0.6
+    },
+    "feeling sick": {
+        "agoraphobia": 0.6,
+        "social phobia": 0.5
+    },
+    "chest pain": {
+        "agoraphobia": 0.7
+    },
+    "dizziness": {
+        "agoraphobia": 0.6
+    },
+    "feeling hot and sweaty": {
+        "agoraphobia": 0.7
+    },
+    "blushing": {
+        "social phobia": 0.8
+    },
+    "fear of losing control": {
+        "social phobia": 0.8,
+        "agoraphobia": 0.7,
+        "claustrophobia": 0.6,
+        "general phobia": 0.5
+    },
+    "fear of fainting": {
+        "claustrophobia": 0.9,
+        "agoraphobia": 0.7,
+        "general phobia": 0.5,
+        "social phobia": 0.4
+    },
+    "feelings of dread": {
+        "general phobia": 0.7,
+        "social phobia": 0.6,
+        "agoraphobia": 0.5,
+        "claustrophobia": 0.4
+    },
+    "fear of dying": {
+        "claustrophobia": 0.8,
+        "agoraphobia": 0.7,
+        "general phobia": 0.6,
+        "social phobia": 0.4
+    },
+    "fear of being unable to escape": {
+        "agoraphobia": 0.9,
+        "claustrophobia": 0.8,
+        "general phobia": 0.5
+    },
+    "fear of being judged": {
+        "social phobia": 0.9,
+        "general phobia": 0.5
+    },
+    "fear of social situations": {
+        "social phobia": 1.0
+    },
+    "avoiding public spaces": {
+        "agoraphobia": 0.9,
+        "social phobia": 0.6,
+        "claustrophobia": 0.5
+    },
+    "fear of enclosed spaces": {
+        "claustrophobia": 1.0
+    },
+    "fear of heights": {
+        "acrophobia": 1.0
+    },
+    "fear of spiders": {
+        "arachnophobia": 1.0
+    },
+    "fear of flying": {
+        "aviophobia": 1.0
+    },
+    "fear of water": {
+        "aquaphobia": 1.0
+    },
+    "fear of crowds": {
+        "agoraphobia": 0.8,
+        "social phobia": 0.7
+    },
+    "fear of blood": {
+        "hemophobia": 1.0
+    },
+    "fear of animals": {
+        "zoophobia": 1.0
+    },
+    "feeling detached from body": {
+        "claustrophobia": 0.8
+    },
+    "pounding heartbeat": {
+        "social phobia": 0.7
+    },
+    "panic attacks": {
+        "social phobia": 0.9
+    }
+}
